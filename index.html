@@ -1,44 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telegram Web App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAGO Perevod</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Добро пожаловать в Telegram Web App</h1>
-  <p>Выберите действие:</p>
-  <button onclick="handleAction('Naqt pul')">Naqt pul</button>
-  <button onclick="handleAction('Karta')">Karta</button>
+    <h1>WAGO Perevod</h1>
+    <button id="naqt">Наqt</button>
+    <button id="karta">Карта</button>
 
-  <script>
-    function handleAction(action) {
-      // Отправляем результат действия в Telegram
-      alert(`Вы выбрали: ${action}`);
-      if (window.Telegram.WebApp) {
-        window.Telegram.WebApp.sendData(action); // Отправляем данные боту
-        window.Telegram.WebApp.close(); // Закрываем Web App
-      }
-    }
+    <div id="form-container"></div>
 
-    // Инициализация Telegram Web App
-    if (window.Telegram.WebApp) {
-      Telegram.WebApp.ready();
-    }
-  </script>
+    <script src="app.js"></script>
 </body>
 </html>
 
