@@ -1,4 +1,4 @@
-let selectedType = "";
+let selectedType = "https://script.google.com/macros/s/AKfycbylkDxTCe7KvdDbTEQEGgE3WhdzrbxaeFe0tHCvCKW3swMhKMEJXZnrbMROMM8Y0Fs4eQ/exec";
 
 // Показать форму при нажатии кнопок
 document.getElementById("naqt-btn").addEventListener("click", () => {
