@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAGO Perevod</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WAGO Perevod</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script> <!-- Подключение Telegram WebApp -->
 </head>
 <body>
-    <h1>WAGO Perevod</h1>
-    <button id="naqt">Наqt</button>
-    <button id="karta">Карта</button>
-
-    <div id="form-container"></div>
-
-    <script src="app.js"></script>
+  <h1>WAGO Perevod</h1>
+  <div id="app">
+    <button id="naqt-btn">Naqt</button>
+    <button id="karta-btn">Karta</button>
+    <div id="form-container" style="display:none;">
+      <input type="text" id="sender" placeholder="Имя отправителя">
+      <input type="text" id="recipient" placeholder="Имя получателя">
+      <input type="number" id="amount" placeholder="Сумма">
+      <input type="text" id="phone" placeholder="Телефон">
+      <select id="region">
+        <option value="Samarqand">Samarqand</option>
+        <option value="Tashkent">Tashkent</option>
+        <option value="Other">Другой</option>
+      </select>
+      <button id="submit-btn">Отправить</button>
+    </div>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
 
