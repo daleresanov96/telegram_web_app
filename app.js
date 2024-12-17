@@ -31,6 +31,14 @@ function showForm(type) {
     const phone = document.getElementById('phone').value;
     const region = document.getElementById('region').value;
 
+    // Проверяем, что все поля заполнены
+    if (!sender || !recipient || !amount || !phone || !region) {
+      alert("Пожалуйста, заполните все поля.");
+      return;
+    }
+
+    console.log("Отправка данных:", { sender, recipient, amount, phone, region, type });
+
     // Отправка данных в Google Sheets
     fetch('https://script.google.com/macros/s/AKfycbylkDxTCe7KvdDbTEQEGgE3WhdzrbxaeFe0tHCvCKW3swMhKMEJXZnrbMROMM8Y0Fs4eQ/exec', {
       method: 'POST',
