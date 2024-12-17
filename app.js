@@ -1,55 +1,52 @@
-let selectedType = "https://script.google.com/macros/s/AKfycbylkDxTCe7KvdDbTEQEGgE3WhdzrbxaeFe0tHCvCKW3swMhKMEJXZnrbMROMM8Y0Fs4eQ/exec";
+// app.js
 
-// Показать форму при нажатии кнопок
-document.getElementById("naqt-btn").addEventListener("click", () => {
-  selectedType = "Naqt";
-  showForm();
-});
+// Функция для обработки авторизации через Telegram
+function onTelegramAuth(user) {
+  console.log("Авторизация прошла успешно:", user);
+  alert(`Добро пожаловать, ${user.first_name}!`);
 
-document.getElementById("karta-btn").addEventListener("click", () => {
-  selectedType = "Karta";
-  showForm();
-});
-
-function showForm() {
-  document.getElementById("form-container").style.display = "block";
+  // Показываем кнопки выбора действия
+  document.getElementById('naqt-btn').style.display = 'inline-block';
+  document.getElementById('karta-btn').style.display = 'inline-block';
 }
 
-// Отправка данных
-document.getElementById("submit-btn").addEventListener("click", () => {
-  const sender = document.getElementById("sender").value;
-  const recipient = document.getElementById("recipient").value;
-  const amount = document.getElementById("amount").value;
-  const phone = document.getElementById("phone").value;
-  const region = document.getElementById("region").value;
+// Обработка нажатия на кнопки "Naqt" и "Karta"
+document.getElementById('naqt-btn').addEventListener('click', function() {
+  showForm('Naqt');
+});
 
-  if (!sender || !recipient || !amount || !phone) {
-    alert("Заполните все поля!");
-    return;
-  }
+document.getElementById('karta-btn').addEventListener('click', function() {
+  showForm('Karta');
+});
 
-  const payload = {
-    type: selectedType,
-    sender,
-    recipient,
-    amount,
-    phone,
-    region,
-    date: new Date().toLocaleDateString(),
-    telegramId: window.Telegram.WebApp.initDataUnsafe?.user?.id || "Unknown"
-  };
+function showForm(type) {
+  // Показываем форму
+  document.getElementById('form-container').style.display = 'block';
 
-  // Отправка данных в Google Apps Script
-  fetch("ВАШ_GOOGLE_APPS_SCRIPT_URL", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  })
+  // Обработчик нажатия кнопки отправки данных
+  document.getElementById('submit-btn').addEventListener('click', function() {
+    const sender = document.getElementById('sender').value;
+    const recipient = document.getElementById('recipient').value;
+    const amount = document.getElementById('amount').value;
+    const phone = document.getElementById('phone').value;
+    const region = document.getElementById('region').value;
+
+    // Отправка данных в Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbylkDxTCe7KvdDbTEQEGgE3WhdzrbxaeFe0tHCvCKW3swMhKMEJXZnrbMROMM8Y0Fs4eQ/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sender, recipient, amount, phone, region, type
+      })
+    })
     .then(response => response.json())
     .then(data => {
-      alert("Данные успешно отправлены!");
-      console.log(data);
-      window.Telegram.WebApp.close(); // Закрыть WebApp
+      console.log("Данные отправлены в Google Sheets:", data);
+      alert('Данные успешно отправлены');
     })
-    .catch(error => console.error("Ошибка:", error));
-});
+    .catch(err => {
+      console.error('Ошибка при отправке данных:', err);
+      alert('Ошибка при отправке данных');
+    });
+  });
+}
